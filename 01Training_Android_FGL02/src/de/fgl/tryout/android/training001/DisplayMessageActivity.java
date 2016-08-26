@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,11 +23,13 @@ public class DisplayMessageActivity extends ActionBarActivity { //Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("FGLTEST", "Methode DisplayActivity.onCreate(..) - start");
 		
 		//++++++++++++++++++++++++++++++++++++++++++++++
 		// Get the message from the intent
 		Intent intent = getIntent();
 		String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+		Log.d("FGLTEST", "Methode sDisplayActivity.onCreate(..) - message="+message);
 		//++++++++++++++++++++++++++++++++++++++++++++++
 		int iColor;
 		String alarmMessagePrefix = "Alarm";
@@ -45,17 +48,24 @@ public class DisplayMessageActivity extends ActionBarActivity { //Activity
 //			//Style den Hintergrund		
 //			actionBar.setBackgroundDrawable(new ColorDrawable(iColor)); // set your desired color
 		}else{
+			Log.d("FGLTEST", "Methode sDisplayActivity.onCreate(..) - minSdkVersion is 11 or higher.");
+			
 			// If your minSdkVersion is 11 or higher, instead use:
 			android.app.ActionBar actionBar = getActionBar();
+			if(actionBar==null){
+				//TODO GOO 20160818: Warum ist Action Bar NULL?
+				Log.d("FGLTEST", "Methode sDisplayActivity.onCreate(..) - action bar IS NULL.");
+				
+			}else{
+			Log.d("FGLTEST", "Methode sDisplayActivity.onCreate(..) - action bar not null.");
+			
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			
 			//Style den Hintergrund			
-			actionBar.setBackgroundDrawable(new ColorDrawable(iColor)); // set your desired color		
+			actionBar.setBackgroundDrawable(new ColorDrawable(iColor)); // set your desired color
+			}
 		}
 			
-		
-		
-		
 		// Create the text view
 	    TextView textView = new TextView(this);
 	    textView.setTextSize(40);
